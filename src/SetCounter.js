@@ -1,10 +1,15 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { set } from './actions';
 
 export const SetCounter = () => {
-  const [value, setValue] = useState(0);
+  const countFromStore = useSelector((state) => state.value);
+  const [value, setValue] = useState(countFromStore);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setValue(countFromStore);
+  }, [countFromStore]);
 
   return (
     <section className="controls">
